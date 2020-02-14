@@ -1,0 +1,66 @@
+﻿@model Pap2020.Models.Utilizador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Utilizador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.senha_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.senha_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefone_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefone_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nr_processo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nr_processo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Utilizador.nome_tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Utilizador.nome_tipo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_utilizador }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

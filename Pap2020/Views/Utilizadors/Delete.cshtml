@@ -1,0 +1,72 @@
+﻿@model Pap2020.Models.Utilizador
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Utilizador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.senha_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.senha_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefone_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefone_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nr_processo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nr_processo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo_Utilizador.nome_tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo_Utilizador.nome_tipo)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
