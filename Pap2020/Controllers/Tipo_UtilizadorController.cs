@@ -34,9 +34,9 @@ namespace Pap2020.Controllers
             }
             return View(tipo_Utilizador);
         }
-
-        // GET: Tipo_Utilizador/Create
-        public ActionResult Create()
+         
+        // GET: Tipo_Utilizador/Create adas
+        public ActionResult Create() 
         {
             return View();
         }
