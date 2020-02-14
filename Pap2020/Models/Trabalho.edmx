@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SistemaGestaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Dia">
+          <Key>
+            <PropertyRef Name="data_hora" />
+            <PropertyRef Name="id_relatorio" />
+          </Key>
+          <Property Name="data_hora" Type="datetime" Nullable="false" />
+          <Property Name="conteudo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_relatorio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Falta">
+          <Key>
+            <PropertyRef Name="id_falta" />
+          </Key>
+          <Property Name="id_falta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Hora_Inicio" Type="datetime" Nullable="false" />
+          <Property Name="Data_Hora_Fim" Type="datetime" Nullable="false" />
+          <Property Name="id_relatorio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relatorio">
+          <Key>
+            <PropertyRef Name="id_relatorio" />
+          </Key>
+          <Property Name="id_relatorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_empresa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NIF" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="email_empresa" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_aluno" Type="int" Nullable="false" />
+          <Property Name="id_professor" Type="int" Nullable="false" />
+          <Property Name="id_monitor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tipo_Utilizador">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_tipo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utilizador">
+          <Key>
+            <PropertyRef Name="id_utilizador" />
+          </Key>
+          <Property Name="id_utilizador" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome_utilizador" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="email_utilizador" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="senha_utilizador" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="telefone_utilizador" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="nr_processo" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="id_tipo" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Dia__id_relatori__3A81B327">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Dia" Type="Self.Dia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Dia">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Falta__id_relato__37A5467C">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Falta" Type="Self.Falta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Falta">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_al__32E0915F">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_mo__34C8D9D1">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_monitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_pr__33D4B598">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilizado__id_ti__300424B4">
+          <End Role="Tipo_Utilizador" Type="Self.Tipo_Utilizador" Multiplicity="1" />
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Utilizador">
+              <PropertyRef Name="id_tipo" />
+            </Principal>
+            <Dependent Role="Utilizador">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaGestaoModelStoreContainer">
+          <EntitySet Name="Dia" EntityType="Self.Dia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Falta" EntityType="Self.Falta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Relatorio" EntityType="Self.Relatorio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo_Utilizador" EntityType="Self.Tipo_Utilizador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilizador" EntityType="Self.Utilizador" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Dia__id_relatori__3A81B327" Association="Self.FK__Dia__id_relatori__3A81B327">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Dia" EntitySet="Dia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Falta__id_relato__37A5467C" Association="Self.FK__Falta__id_relato__37A5467C">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Falta" EntitySet="Falta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_al__32E0915F" Association="Self.FK__Relatorio__id_al__32E0915F">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_mo__34C8D9D1" Association="Self.FK__Relatorio__id_mo__34C8D9D1">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_pr__33D4B598" Association="Self.FK__Relatorio__id_pr__33D4B598">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilizado__id_ti__300424B4" Association="Self.FK__Utilizado__id_ti__300424B4">
+            <End Role="Tipo_Utilizador" EntitySet="Tipo_Utilizador" />
+            <End Role="Utilizador" EntitySet="Utilizador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SistemaGestaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Dia">
+          <Key>
+            <PropertyRef Name="data_hora" />
+            <PropertyRef Name="id_relatorio" />
+          </Key>
+          <Property Name="data_hora" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="conteudo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_relatorio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Relatorio" Relationship="Self.FK__Dia__id_relatori__3A81B327" FromRole="Dia" ToRole="Relatorio" />
+        </EntityType>
+        <EntityType Name="Falta">
+          <Key>
+            <PropertyRef Name="id_falta" />
+          </Key>
+          <Property Name="id_falta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Hora_Inicio" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Data_Hora_Fim" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_relatorio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Relatorio" Relationship="Self.FK__Falta__id_relato__37A5467C" FromRole="Falta" ToRole="Relatorio" />
+        </EntityType>
+        <EntityType Name="Relatorio">
+          <Key>
+            <PropertyRef Name="id_relatorio" />
+          </Key>
+          <Property Name="id_relatorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NIF" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_empresa" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_aluno" Type="Int32" Nullable="false" />
+          <Property Name="id_professor" Type="Int32" Nullable="false" />
+          <Property Name="id_monitor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dia" Relationship="Self.FK__Dia__id_relatori__3A81B327" FromRole="Relatorio" ToRole="Dia" />
+          <NavigationProperty Name="Falta" Relationship="Self.FK__Falta__id_relato__37A5467C" FromRole="Relatorio" ToRole="Falta" />
+          <NavigationProperty Name="Utilizador" Relationship="Self.FK__Relatorio__id_al__32E0915F" FromRole="Relatorio" ToRole="Utilizador" />
+          <NavigationProperty Name="Utilizador1" Relationship="Self.FK__Relatorio__id_mo__34C8D9D1" FromRole="Relatorio" ToRole="Utilizador" />
+          <NavigationProperty Name="Utilizador2" Relationship="Self.FK__Relatorio__id_pr__33D4B598" FromRole="Relatorio" ToRole="Utilizador" />
+        </EntityType>
+        <EntityType Name="Tipo_Utilizador">
+          <Key>
+            <PropertyRef Name="id_tipo" />
+          </Key>
+          <Property Name="id_tipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Utilizador" Relationship="Self.FK__Utilizado__id_ti__300424B4" FromRole="Tipo_Utilizador" ToRole="Utilizador" />
+        </EntityType>
+        <EntityType Name="Utilizador">
+          <Key>
+            <PropertyRef Name="id_utilizador" />
+          </Key>
+          <Property Name="id_utilizador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome_utilizador" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email_utilizador" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha_utilizador" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefone_utilizador" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nr_processo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="id_tipo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Relatorio" Relationship="Self.FK__Relatorio__id_al__32E0915F" FromRole="Utilizador" ToRole="Relatorio" />
+          <NavigationProperty Name="Relatorio1" Relationship="Self.FK__Relatorio__id_mo__34C8D9D1" FromRole="Utilizador" ToRole="Relatorio" />
+          <NavigationProperty Name="Relatorio2" Relationship="Self.FK__Relatorio__id_pr__33D4B598" FromRole="Utilizador" ToRole="Relatorio" />
+          <NavigationProperty Name="Tipo_Utilizador" Relationship="Self.FK__Utilizado__id_ti__300424B4" FromRole="Utilizador" ToRole="Tipo_Utilizador" />
+        </EntityType>
+        <Association Name="FK__Dia__id_relatori__3A81B327">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Dia" Type="Self.Dia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Dia">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Falta__id_relato__37A5467C">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Falta" Type="Self.Falta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Falta">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_al__32E0915F">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_aluno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_mo__34C8D9D1">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_monitor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Relatorio__id_pr__33D4B598">
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="1" />
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilizador">
+              <PropertyRef Name="id_utilizador" />
+            </Principal>
+            <Dependent Role="Relatorio">
+              <PropertyRef Name="id_professor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utilizado__id_ti__300424B4">
+          <End Role="Tipo_Utilizador" Type="Self.Tipo_Utilizador" Multiplicity="1" />
+          <End Role="Utilizador" Type="Self.Utilizador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo_Utilizador">
+              <PropertyRef Name="id_tipo" />
+            </Principal>
+            <Dependent Role="Utilizador">
+              <PropertyRef Name="id_tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SistemaGestaoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dia" EntityType="Self.Dia" />
+          <EntitySet Name="Falta" EntityType="Self.Falta" />
+          <EntitySet Name="Relatorio" EntityType="Self.Relatorio" />
+          <EntitySet Name="Tipo_Utilizador" EntityType="Self.Tipo_Utilizador" />
+          <EntitySet Name="Utilizador" EntityType="Self.Utilizador" />
+          <AssociationSet Name="FK__Dia__id_relatori__3A81B327" Association="Self.FK__Dia__id_relatori__3A81B327">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Dia" EntitySet="Dia" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Falta__id_relato__37A5467C" Association="Self.FK__Falta__id_relato__37A5467C">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Falta" EntitySet="Falta" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_al__32E0915F" Association="Self.FK__Relatorio__id_al__32E0915F">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_mo__34C8D9D1" Association="Self.FK__Relatorio__id_mo__34C8D9D1">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Relatorio__id_pr__33D4B598" Association="Self.FK__Relatorio__id_pr__33D4B598">
+            <End Role="Utilizador" EntitySet="Utilizador" />
+            <End Role="Relatorio" EntitySet="Relatorio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utilizado__id_ti__300424B4" Association="Self.FK__Utilizado__id_ti__300424B4">
+            <End Role="Tipo_Utilizador" EntitySet="Tipo_Utilizador" />
+            <End Role="Utilizador" EntitySet="Utilizador" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SistemaGestaoModelStoreContainer" CdmEntityContainer="SistemaGestaoEntities">
+          <EntitySetMapping Name="Dia">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Dia">
+              <MappingFragment StoreEntitySet="Dia">
+                <ScalarProperty Name="data_hora" ColumnName="data_hora" />
+                <ScalarProperty Name="conteudo" ColumnName="conteudo" />
+                <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Falta">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Falta">
+              <MappingFragment StoreEntitySet="Falta">
+                <ScalarProperty Name="id_falta" ColumnName="id_falta" />
+                <ScalarProperty Name="Data_Hora_Inicio" ColumnName="Data_Hora_Inicio" />
+                <ScalarProperty Name="Data_Hora_Fim" ColumnName="Data_Hora_Fim" />
+                <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relatorio">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Relatorio">
+              <MappingFragment StoreEntitySet="Relatorio">
+                <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
+                <ScalarProperty Name="nome_empresa" ColumnName="nome_empresa" />
+                <ScalarProperty Name="NIF" ColumnName="NIF" />
+                <ScalarProperty Name="email_empresa" ColumnName="email_empresa" />
+                <ScalarProperty Name="id_aluno" ColumnName="id_aluno" />
+                <ScalarProperty Name="id_professor" ColumnName="id_professor" />
+                <ScalarProperty Name="id_monitor" ColumnName="id_monitor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tipo_Utilizador">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Tipo_Utilizador">
+              <MappingFragment StoreEntitySet="Tipo_Utilizador">
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+                <ScalarProperty Name="nome_tipo" ColumnName="nome_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilizador">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Utilizador">
+              <MappingFragment StoreEntitySet="Utilizador">
+                <ScalarProperty Name="id_utilizador" ColumnName="id_utilizador" />
+                <ScalarProperty Name="nome_utilizador" ColumnName="nome_utilizador" />
+                <ScalarProperty Name="email_utilizador" ColumnName="email_utilizador" />
+                <ScalarProperty Name="senha_utilizador" ColumnName="senha_utilizador" />
+                <ScalarProperty Name="telefone_utilizador" ColumnName="telefone_utilizador" />
+                <ScalarProperty Name="nr_processo" ColumnName="nr_processo" />
+                <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

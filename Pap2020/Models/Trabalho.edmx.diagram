@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18c729b1e7a842eaba5844f2499f7f5e" Name="Diagram1" ZoomLevel="85">
+        <EntityTypeShape EntityType="SistemaGestaoModel.Dia" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Falta" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Relatorio" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Tipo_Utilizador" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Utilizador" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Dia__id_relatori__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Falta__id_relato__37A5467C" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Relatorio__id_al__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Relatorio__id_mo__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Relatorio__id_pr__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Utilizado__id_ti__300424B4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
