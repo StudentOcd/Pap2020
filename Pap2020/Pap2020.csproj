@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Tipo_UtilizadorController.cs" />
     <Compile Include="Controllers\UtilizadorsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,6 +224,11 @@
     <Content Include="Views\Utilizadors\Details.cshtml" />
     <Content Include="Views\Utilizadors\Edit.cshtml" />
     <Content Include="Views\Utilizadors\Index.cshtml" />
+    <Content Include="Views\Tipo_Utilizador\Create.cshtml" />
+    <Content Include="Views\Tipo_Utilizador\Delete.cshtml" />
+    <Content Include="Views\Tipo_Utilizador\Details.cshtml" />
+    <Content Include="Views\Tipo_Utilizador\Edit.cshtml" />
+    <Content Include="Views\Tipo_Utilizador\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

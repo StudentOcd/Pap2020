@@ -1,0 +1,26 @@
+﻿@model Pap2020.Models.Tipo_Utilizador
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tipo_Utilizador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_tipo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_tipo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
