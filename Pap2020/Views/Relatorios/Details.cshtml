@@ -1,0 +1,66 @@
+﻿@model Pap2020.Models.Relatorio
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do relatório</h2>
+
+<div>
+    <h4>Relatorio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nome_empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nome_empresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NIF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NIF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_empresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_empresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador.nome_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador.nome_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador1.nome_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador1.nome_utilizador)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Utilizador2.nome_utilizador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Utilizador2.nome_utilizador)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id_relatorio }) |
+    @Html.ActionLink("Voltar atrás", "Index")
+</p>

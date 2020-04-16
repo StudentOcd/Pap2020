@@ -15,9 +15,8 @@ namespace Pap2020.Models
     public partial class Falta
     {
         public int id_falta { get; set; }
-        public System.DateTime Data_Hora_Inicio { get; set; }
-        public System.DateTime Data_Hora_Fim { get; set; }
         public int id_relatorio { get; set; }
+        public System.DateTime Data { get; set; }
     
         public virtual Relatorio Relatorio { get; set; }
     }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SistemaGestaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SistemaGestaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Dia">
           <Key>
             <PropertyRef Name="data_hora" />
@@ -19,8 +19,7 @@
             <PropertyRef Name="id_falta" />
           </Key>
           <Property Name="id_falta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Data_Hora_Inicio" Type="datetime" Nullable="false" />
-          <Property Name="Data_Hora_Fim" Type="datetime" Nullable="false" />
+          <Property Name="Data" Type="datetime" Nullable="false" />
           <Property Name="id_relatorio" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Relatorio">
@@ -34,6 +33,7 @@
           <Property Name="id_aluno" Type="int" Nullable="false" />
           <Property Name="id_professor" Type="int" Nullable="false" />
           <Property Name="id_monitor" Type="int" Nullable="false" />
+          <Property Name="avaliacao" Type="float" />
         </EntityType>
         <EntityType Name="Tipo_Utilizador">
           <Key>
@@ -157,8 +157,7 @@
             <End Role="Utilizador" EntitySet="Utilizador" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SistemaGestaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -177,10 +176,9 @@
             <PropertyRef Name="id_falta" />
           </Key>
           <Property Name="id_falta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Data_Hora_Inicio" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Data_Hora_Fim" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="id_relatorio" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Relatorio" Relationship="Self.FK__Falta__id_relato__37A5467C" FromRole="Falta" ToRole="Relatorio" />
+          <Property Name="Data" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Relatorio">
           <Key>
@@ -198,6 +196,7 @@
           <NavigationProperty Name="Utilizador" Relationship="Self.FK__Relatorio__id_al__32E0915F" FromRole="Relatorio" ToRole="Utilizador" />
           <NavigationProperty Name="Utilizador1" Relationship="Self.FK__Relatorio__id_mo__34C8D9D1" FromRole="Relatorio" ToRole="Utilizador" />
           <NavigationProperty Name="Utilizador2" Relationship="Self.FK__Relatorio__id_pr__33D4B598" FromRole="Relatorio" ToRole="Utilizador" />
+          <Property Name="avaliacao" Type="Double" />
         </EntityType>
         <EntityType Name="Tipo_Utilizador">
           <Key>
@@ -344,9 +343,8 @@
           <EntitySetMapping Name="Falta">
             <EntityTypeMapping TypeName="SistemaGestaoModel.Falta">
               <MappingFragment StoreEntitySet="Falta">
+                <ScalarProperty Name="Data" ColumnName="Data" />
                 <ScalarProperty Name="id_falta" ColumnName="id_falta" />
-                <ScalarProperty Name="Data_Hora_Inicio" ColumnName="Data_Hora_Inicio" />
-                <ScalarProperty Name="Data_Hora_Fim" ColumnName="Data_Hora_Fim" />
                 <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -354,6 +352,7 @@
           <EntitySetMapping Name="Relatorio">
             <EntityTypeMapping TypeName="SistemaGestaoModel.Relatorio">
               <MappingFragment StoreEntitySet="Relatorio">
+                <ScalarProperty Name="avaliacao" ColumnName="avaliacao" />
                 <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
                 <ScalarProperty Name="nome_empresa" ColumnName="nome_empresa" />
                 <ScalarProperty Name="NIF" ColumnName="NIF" />

@@ -4,60 +4,70 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.nome_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.senha_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.telefone_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nr_processo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo_Utilizador.nome_tipo)
-        </th>
-        <th></th>
-    </tr>
+   <h2>Utilizadores Atuais</h2>
+            
+            <div class="content">
+                <div class="inner">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.nome_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.senha_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.telefone_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.nr_processo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo_Utilizador.nome_tipo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_utilizador }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_utilizador }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_utilizador })
-        </td>
-    </tr>
-}
 
-</table>
+
+
+                    <p>
+                        @Html.ActionLink("Create New", "Create")
+                    </p>
+                    <div class="table-wrapper">
+                        <table >
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.nome_utilizador)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.email_utilizador)
+                                </th>
+                              
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.telefone_utilizador)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.nr_processo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Tipo_Utilizador.nome_tipo)
+                                </th>
+                                <th></th>
+                            </tr>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nome_utilizador)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.email_utilizador)
+                                    </td>
+                                   
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.telefone_utilizador)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.nr_processo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Tipo_Utilizador.nome_tipo)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.id_utilizador }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.id_utilizador }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.id_utilizador })
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                        </div>
+                    </div>
+                </div>
+       

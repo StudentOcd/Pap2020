@@ -28,6 +28,7 @@ namespace Pap2020.Models
         public int id_aluno { get; set; }
         public int id_professor { get; set; }
         public int id_monitor { get; set; }
+        public Nullable<double> avaliacao { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Dia> Dia { get; set; }

@@ -3,40 +3,61 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Index Utilizadores</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <p></p>
+    <!-- Sidebar -->
+    <section id="sidebar">
+        <div class="inner">
+            <nav>
+                <ul>
+                    @{
+                        if (Session["username"] == null)
+                        {
+                            @Html.ActionLink("Login", "Login", "Utilizadors")
+                            @Html.ActionLink("Register", "Register", "Utilizadors") // Falta adicionar no controller
+                        }
+                        else
+                        {
+                            <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
+                            @Html.ActionLink("Relatorios", "Index","Relatorios")
+                            @Html.ActionLink("Faltas", "Index", "Faltas");
+                            @Html.ActionLink("Conta","Details","Utilizadors")
+                            @Html.ActionLink("Logout", "Logout","Utilizadors")
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                        }
+                    }
+
+                </ul>
+            </nav>
+        </div>
+    </section>
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Intro -->
+     
+            @RenderBody()
+            <hr />
+        <p></p>
+        <p></p>
+        <p></p>
+            <footer>
+                <p>&copy; @DateTime.Now.Year - PAP2020</p>
+        </footer>
+      
+       
+    </div>
+       
+       
+           
+            
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/HyperSpace")
+            @RenderSection("scripts", required: false)
 </body>
 </html>

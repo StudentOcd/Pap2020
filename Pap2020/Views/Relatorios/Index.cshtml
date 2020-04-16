@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Pap2020.Models.Relatorio>
+
+@{
+    ViewBag.Title = "Menu Relatórios";
+}
+
+<h2>Menu dos Relatórios</h2>
+
+<p>
+    @Html.ActionLink("Criar Relatório", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nome_empresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NIF)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email_empresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilizador.nome_utilizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilizador1.nome_utilizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Utilizador2.nome_utilizador)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avaliacao)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome_empresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NIF)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email_empresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utilizador.nome_utilizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utilizador1.nome_utilizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Utilizador2.nome_utilizador)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.avaliacao)
+       )
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.id_relatorio }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.id_relatorio }) |
+            @Html.ActionLink("Apagar", "Delete", new { id=item.id_relatorio }) |
+            @Html.ActionLink("Avaliar", "Rate",new { id=item.id_relatorio}) |
+        </td>
+    </tr>
+}
+
+</table>
