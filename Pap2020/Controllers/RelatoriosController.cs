@@ -16,32 +16,38 @@ namespace Pap2020.Controllers
     {
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
 
-        // GET: Relatorios
+     
         public ActionResult Index()
         {
             if ( Session["Id"] == null)
             {
                 return View("Error");
             }
-            int id = Convert.ToInt32(Session["Id"].ToString());
+            int id = Convert.ToInt32(Session["Id"]);
             //Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
            int Tipo =Convert.ToInt32( Session["Tipo"]);
            
             switch (Tipo)
             {
 
-                case 3:
+                case 1:  
                    var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
                     return View(relatorio.ToList());
                   
                     
-                case 2:
+                case 3:   
                   var  relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
+                    
                     return View(relatorio1.ToList());
                    
-                case 1:
+                case 2:
                    var  relatorio2 = db.Relatorio.Where(r => r.id_professor.Equals(id));
+                    if(relatorio2  == null)
+                    {
+                        return View("Error");
+                    }
                     return View(relatorio2.ToList());
+
                 default:
                     return View("Error");
                     

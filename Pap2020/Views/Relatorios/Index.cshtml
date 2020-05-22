@@ -63,7 +63,8 @@
             @Html.ActionLink("Editar", "Edit", new { id=item.id_relatorio }) |
             @Html.ActionLink("Detalhes", "Details", new { id=item.id_relatorio }) |
             @Html.ActionLink("Apagar", "Delete", new { id=item.id_relatorio }) |
-            @Html.ActionLink("Avaliar", "Rate",new { id=item.id_relatorio}) |
+            @Html.ActionLink("Faltas", "Index","Faltas" ,null, new { id=item.id_relatorio}) |
+           
         </td>
     </tr>
 }

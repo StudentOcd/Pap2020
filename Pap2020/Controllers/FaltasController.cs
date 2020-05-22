@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -15,11 +17,23 @@ namespace Pap2020.Controllers
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
 
         // GET: Faltas
-        public ActionResult Index()
+      
+       [HttpGet]
+        public ActionResult Index(int idreq)
         {
-            var falta = db.Falta.Include(f => f.Relatorio);
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
+
+            // Recebe o id do relaório e compara o com o id do relatório que contem as faltas
+            var falta = db.Falta.Where(r => r.id_relatorio == idreq);
             return View(falta.ToList());
         }
+    
+
+
+    
 
         // GET: Faltas/Details/5
         public ActionResult Details(int? id)

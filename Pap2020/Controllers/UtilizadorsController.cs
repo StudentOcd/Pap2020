@@ -34,6 +34,7 @@ namespace Pap2020.Controllers
             {
                 string passwordEncrypted = Crypto.crypto.GenerateSHA256String(userLogin.Password);
                 var v = db.Utilizador.Where(u => u.nome_utilizador == userLogin.Username && u.senha_utilizador == passwordEncrypted);
+                
                 if (v != null)
                 {
                     //Criar objeto que passe toda informação session

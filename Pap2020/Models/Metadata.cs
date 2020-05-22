@@ -81,5 +81,13 @@ namespace Pap2020.Models
         [Display(Name="Monitor")]
         public virtual Utilizador Utilizador2 { get; set; }
     }
-   
+    public class FaltaMetadata
+    {
+        [Display(Name="Data")]
+        public DateTime Data { get; set; }
+
+        [Display(Name = "Relatório")]
+        public int id_relatorio { get; set; }
+    }
+
 }

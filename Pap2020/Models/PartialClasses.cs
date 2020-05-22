@@ -21,4 +21,9 @@ namespace Pap2020.Models
     {
 
     }
+    [MetadataType(typeof(FaltaMetadata))]
+    public partial class Falta
+    {
+       
+    }
 }
