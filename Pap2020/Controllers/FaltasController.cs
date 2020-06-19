@@ -17,23 +17,53 @@ namespace Pap2020.Controllers
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
 
         // GET: Faltas
-      
-       [HttpGet]
-        public ActionResult Index(int idreq)
+
+        [HttpGet]
+        public ActionResult Index()
         {
             if (Session["Id"] == null)
             {
                 return View("Error");
             }
+            int id_utilizador = Convert.ToInt32(Session["Id"]);
+            //Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
 
-            // Recebe o id do relaório e compara o com o id do relatório que contem as faltas
-            var falta = db.Falta.Where(r => r.id_relatorio == idreq);
-            return View(falta.ToList());
+            switch (Tipo)
+            {
+                case 1:
+                    string query = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
+                "Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+
+
+                    var falta = db.Database.SqlQuery<Falta>(query).ToList();
+                        return View(falta.ToList());
+
+                case 3:
+                    string query1 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
+                  "Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+
+
+                    var falta1 = db.Database.SqlQuery<Falta>(query1).ToList();
+                    return View(falta1.ToList());
+
+
+                    
+                case 2:
+                    string query2 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
+                "Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+
+
+                    var falta2 = db.Database.SqlQuery<Falta>(query2).ToList();
+                    return View(falta2.ToList());
+
+                default:
+                    return View("Error");
+
+            }
+
         }
-    
 
-
-    
 
         // GET: Faltas/Details/5
         public ActionResult Details(int? id)

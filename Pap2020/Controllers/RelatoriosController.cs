@@ -19,6 +19,7 @@ namespace Pap2020.Controllers
      
         public ActionResult Index()
         {
+
             if ( Session["Id"] == null)
             {
                 return View("Error");

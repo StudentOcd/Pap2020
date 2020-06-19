@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SistemaGestaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bloqueio">
+          <Key>
+            <PropertyRef Name="dia" />
+          </Key>
+          <Property Name="dia" Type="datetime" Nullable="false" />
+          <Property Name="is_locked" Type="int" Nullable="false" />
+          <Property Name="id_relatorio" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Dia">
           <Key>
             <PropertyRef Name="data_hora" />
@@ -34,6 +42,7 @@
           <Property Name="id_professor" Type="int" Nullable="false" />
           <Property Name="id_monitor" Type="int" Nullable="false" />
           <Property Name="avaliacao" Type="float" />
+          <Property Name="is_locked" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tipo_Utilizador">
           <Key>
@@ -54,6 +63,18 @@
           <Property Name="nr_processo" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="id_tipo" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Bloqueio__id_rel__75A278F5">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Bloqueio" Type="Self.Bloqueio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Bloqueio">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Dia__id_relatori__3A81B327">
           <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
           <End Role="Dia" Type="Self.Dia" Multiplicity="*" />
@@ -127,11 +148,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SistemaGestaoModelStoreContainer">
+          <EntitySet Name="Bloqueio" EntityType="Self.Bloqueio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dia" EntityType="Self.Dia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Falta" EntityType="Self.Falta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relatorio" EntityType="Self.Relatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Utilizador" EntityType="Self.Tipo_Utilizador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilizador" EntityType="Self.Utilizador" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bloqueio__id_rel__75A278F5" Association="Self.FK__Bloqueio__id_rel__75A278F5">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Bloqueio" EntitySet="Bloqueio" />
+          </AssociationSet>
           <AssociationSet Name="FK__Dia__id_relatori__3A81B327" Association="Self.FK__Dia__id_relatori__3A81B327">
             <End Role="Relatorio" EntitySet="Relatorio" />
             <End Role="Dia" EntitySet="Dia" />
@@ -197,6 +223,8 @@
           <NavigationProperty Name="Utilizador1" Relationship="Self.FK__Relatorio__id_mo__34C8D9D1" FromRole="Relatorio" ToRole="Utilizador" />
           <NavigationProperty Name="Utilizador2" Relationship="Self.FK__Relatorio__id_pr__33D4B598" FromRole="Relatorio" ToRole="Utilizador" />
           <Property Name="avaliacao" Type="Double" />
+          <Property Name="is_locked" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bloqueio" Relationship="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81" FromRole="Relatorio" ToRole="Bloqueio" />
         </EntityType>
         <EntityType Name="Tipo_Utilizador">
           <Key>
@@ -324,7 +352,33 @@
             <End Role="Tipo_Utilizador" EntitySet="Tipo_Utilizador" />
             <End Role="Utilizador" EntitySet="Utilizador" />
           </AssociationSet>
+          <EntitySet Name="Bloqueio" EntityType="SistemaGestaoModel.Bloqueio" />
+          <AssociationSet Name="FK__Table__id_relato__70DDC3D81" Association="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Bloqueio" EntitySet="Bloqueio" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bloqueio">
+          <Key>
+            <PropertyRef Name="dia" />
+          </Key>
+          <Property Name="dia" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_locked" Type="Int32" Nullable="false" />
+          <Property Name="id_relatorio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Relatorio" Relationship="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81" FromRole="Bloqueio" ToRole="Relatorio" />
+        </EntityType>
+        <Association Name="FK__Table__id_relato__70DDC3D81">
+          <End Type="SistemaGestaoModel.Relatorio" Role="Relatorio" Multiplicity="1" />
+          <End Type="SistemaGestaoModel.Bloqueio" Role="Bloqueio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Bloqueio">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -352,6 +406,7 @@
           <EntitySetMapping Name="Relatorio">
             <EntityTypeMapping TypeName="SistemaGestaoModel.Relatorio">
               <MappingFragment StoreEntitySet="Relatorio">
+                <ScalarProperty Name="is_locked" ColumnName="is_locked" />
                 <ScalarProperty Name="avaliacao" ColumnName="avaliacao" />
                 <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
                 <ScalarProperty Name="nome_empresa" ColumnName="nome_empresa" />
@@ -381,6 +436,15 @@
                 <ScalarProperty Name="telefone_utilizador" ColumnName="telefone_utilizador" />
                 <ScalarProperty Name="nr_processo" ColumnName="nr_processo" />
                 <ScalarProperty Name="id_tipo" ColumnName="id_tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bloqueio">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Bloqueio">
+              <MappingFragment StoreEntitySet="Bloqueio">
+                <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
+                <ScalarProperty Name="is_locked" ColumnName="is_locked" />
+                <ScalarProperty Name="dia" ColumnName="dia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

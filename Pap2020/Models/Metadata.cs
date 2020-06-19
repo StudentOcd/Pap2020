@@ -30,19 +30,7 @@ namespace Pap2020.Models
 
        
     }
-    public class DiaMetadata
-    {
-
-        [Required]
-        [Display(Name = "Hora/Data")]
-        public DateTime data_hora { get; set; }
-        [Required]
-        [Display(Name = "Conteudo")]
-        public string conteudo { get; set; }
-        [Required]   // Não está a funcionar
-        [Display(Name = "Relatorio")]
-        public int id_relatorio { get; set; }
-    }
+   
     public class RelatoriosMetadata
     {
         [Required]
@@ -71,6 +59,7 @@ namespace Pap2020.Models
 
         [Display(Name="Avaliação Final")]
         public double avaliacao { get; set; }
+        public int is_locked { get; set; }
 
         [Display(Name="Aluno")]
         public virtual Utilizador Utilizador { get; set; }
@@ -89,5 +78,21 @@ namespace Pap2020.Models
         [Display(Name = "Relatório")]
         public int id_relatorio { get; set; }
     }
+    public class DiaMetadata
+    {
+        [Display(Name = " Data")]
+        public System.DateTime data_hora { get; set; }
 
+        [Display(Name =" Atividade")]
+        public string conteudo { get; set; }
+        public int id_relatorio { get; set; }
+    }
+    public class BloqueioMetaData
+    {
+        [Display(Name = " Data")]
+        public DateTime dia { get; set; }
+        [Display(Name="Pode Editar?")]
+        public int is_locked { get; set; }
+        public int id_relatorio { get; set; }
+    }
 }

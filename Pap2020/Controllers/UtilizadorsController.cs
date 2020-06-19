@@ -58,6 +58,10 @@ namespace Pap2020.Controllers
 
         public ActionResult Index()
         {
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
             var utilizador = db.Utilizador.Include(u => u.Tipo_Utilizador);
             return View(utilizador.ToList());
         }
@@ -65,6 +69,10 @@ namespace Pap2020.Controllers
         // GET: Utilizadors/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -80,6 +88,8 @@ namespace Pap2020.Controllers
         // GET: Utilizadors/Create
         public ActionResult Create()
         {
+
+
             ViewBag.id_tipo = new SelectList(db.Tipo_Utilizador, "id_tipo", "nome_tipo");
             return View();
         }
@@ -91,6 +101,10 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
             if (ModelState.IsValid)
             {
                 utilizador.senha_utilizador = Crypto.crypto.GenerateSHA256String(utilizador.senha_utilizador);

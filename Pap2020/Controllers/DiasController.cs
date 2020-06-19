@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Pap2020.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Pap2020.Models;
 
 namespace Pap2020.Controllers
 {
@@ -17,9 +16,50 @@ namespace Pap2020.Controllers
         // GET: Dias
         public ActionResult Index()
         {
-            var dia = db.Dia.Include(d => d.Relatorio);
-            return View(dia.ToList());
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
+
+
+
+            //int id = Convert.ToInt32(Session["Id"]);
+            ////Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
+            //int Tipo = Convert.ToInt32(Session["Tipo"]);
+            //List<Relatorio> relatorios = null;
+
+            //switch (Tipo)
+            //{
+            //    case 1:
+            //        var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
+            //        relatorios.Add((Relatorio)relatorio);
+            //        break;
+
+
+            //    case 3:
+            //        var relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
+            //        relatorios.Add((Relatorio)relatorio1);
+            //        break;
+
+            //    case 2:
+            //        var relatorio3 = db.Relatorio.Where(r => r.id_professor.Equals(id));
+            //        relatorios.Add((Relatorio)relatorio3);
+            //        break;
+
+            //    default:
+            //        return View("Error");
+
+            //}
+
+
+            //foreach (var relatorio)
+            //{
+            //    Relatorio relatorio = relatorios[].id_relatorio;
+            //}
+
+
         }
+
 
         // GET: Dias/Details/5
         public ActionResult Details(DateTime id)

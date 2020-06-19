@@ -154,6 +154,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BloqueiosController.cs" />
     <Compile Include="Controllers\DiasController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FaltasController.cs" />
@@ -164,6 +165,9 @@
     <Compile Include="Crypto\crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Bloqueio.cs">
+      <DependentUpon>Trabalho.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Dia.cs">
       <DependentUpon>Trabalho.tt</DependentUpon>
@@ -301,11 +305,17 @@
     <Content Include="Views\Utilizadors\Web.config" />
     <Content Include="Views\Shared\Home.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Bloqueios\Create.cshtml" />
+    <Content Include="Views\Bloqueios\Delete.cshtml" />
+    <Content Include="Views\Bloqueios\Details.cshtml" />
+    <Content Include="Views\Bloqueios\Edit.cshtml" />
+    <Content Include="Views\Bloqueios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\HyperSpace\" />
     <Folder Include="Scripts\HyperSpace\" />
+    <Folder Include="Views\Conta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

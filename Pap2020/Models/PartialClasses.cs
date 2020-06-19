@@ -26,4 +26,10 @@ namespace Pap2020.Models
     {
        
     }
+    [MetadataType(typeof(BloqueioMetaData))]
+    public partial class Bloqueio
+    {
+
+    }
+   
 }

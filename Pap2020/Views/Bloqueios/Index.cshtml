@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Pap2020.Models.Dia>
+﻿@model IEnumerable<Pap2020.Models.Bloqueio>
 
 @{
     ViewBag.Title = "Index";
 }
 
-
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,7 +12,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.conteudo)
+            @Html.DisplayNameFor(model => model.is_locked)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
@@ -23,15 +23,15 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.conteudo)
+            @Html.DisplayFor(modelItem => item.is_locked)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new { id=item.dia }) |
+            @Html.ActionLink("Details", "Details", new { id=item.dia }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.dia })
         </td>
     </tr>
 }

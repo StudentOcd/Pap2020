@@ -30,5 +30,6 @@ namespace Pap2020.Models
         public virtual DbSet<Relatorio> Relatorio { get; set; }
         public virtual DbSet<Tipo_Utilizador> Tipo_Utilizador { get; set; }
         public virtual DbSet<Utilizador> Utilizador { get; set; }
+        public virtual DbSet<Bloqueio> Bloqueio { get; set; }
     }
 }
