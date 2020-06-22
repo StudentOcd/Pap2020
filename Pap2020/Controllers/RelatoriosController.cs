@@ -16,7 +16,7 @@ namespace Pap2020.Controllers
     {
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
 
-     
+     [Authorize]
         public ActionResult Index()
         {
 
@@ -31,17 +31,17 @@ namespace Pap2020.Controllers
             switch (Tipo)
             {
 
-                case 1:  
+                case 3:  
                    var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
                     return View(relatorio.ToList());
                   
                     
-                case 3:   
+                case 2:   
                   var  relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
                     
                     return View(relatorio1.ToList());
                    
-                case 2:
+                case 1:
                    var  relatorio2 = db.Relatorio.Where(r => r.id_professor.Equals(id));
                     if(relatorio2  == null)
                     {
@@ -56,7 +56,7 @@ namespace Pap2020.Controllers
            
         }
 
-       
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -72,6 +72,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Relatorios/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.id_aluno = new SelectList(db.Utilizador, "id_utilizador", "nome_utilizador");
@@ -84,6 +85,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_relatorio,nome_empresa,NIF,email_empresa,id_aluno,id_professor,id_monitor")] Relatorio relatorio)
         {
@@ -101,6 +103,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Relatorios/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,6 +125,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_relatorio,nome_empresa,NIF,email_empresa,id_aluno,id_professor,id_monitor")] Relatorio relatorio)
         {
@@ -138,6 +142,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Relatorios/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -160,6 +165,7 @@ namespace Pap2020.Controllers
 
         // POST: Relatorios/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

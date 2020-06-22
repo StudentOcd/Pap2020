@@ -28,6 +28,7 @@ namespace Pap2020.Controllers
         }
 
         [HttpPost]
+
         public ActionResult Login(UserLoginView userLogin)
         {
             if (ModelState.IsValid)
@@ -43,7 +44,7 @@ namespace Pap2020.Controllers
                     Session["Tipo"] = v.First().id_tipo;
                     FormsAuthentication.SetAuthCookie(v.First().nome_utilizador, false);
                     
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Relatorios");
                 }
                 else
                 {
@@ -55,7 +56,7 @@ namespace Pap2020.Controllers
 
             return View();
         }
-
+        [Authorize]
         public ActionResult Index()
         {
             if (Session["Id"] == null)
@@ -66,7 +67,7 @@ namespace Pap2020.Controllers
             return View(utilizador.ToList());
         }
 
-        // GET: Utilizadors/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (Session["Id"] == null)
@@ -85,7 +86,7 @@ namespace Pap2020.Controllers
             return View(utilizador);
         }
 
-        // GET: Utilizadors/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -98,6 +99,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
@@ -153,6 +155,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Utilizadors/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -172,7 +175,9 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
             if (ModelState.IsValid)
@@ -186,6 +191,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Utilizadors/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -208,6 +214,7 @@ namespace Pap2020.Controllers
 
         // POST: Utilizadors/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

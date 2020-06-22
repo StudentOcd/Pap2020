@@ -21,6 +21,7 @@
                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
             </div>
         </div>
+        <p></p>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -40,7 +41,7 @@
 
 <div>
     @Html.ActionLink("Esqueceu-se da sua senha?", "RecupSenha")
-    @Html.ActionLink("Voltar atrás", "Index")
+    
 </div>
 
 @section Scripts {

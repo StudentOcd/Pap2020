@@ -14,54 +14,56 @@ namespace Pap2020.Controllers
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
 
         // GET: Dias
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Index(int? id)
         {
             if (Session["Id"] == null)
             {
                 return View("Error");
             }
+            
+
+            int id_utilizador = Convert.ToInt32(Session["Id"]);
+            //Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+
+            switch (Tipo)
+            {
+                case 1:
+                    string query = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
+
+
+                    var falta = db.Database.SqlQuery<Dia>(query).ToList();
+                    return View(falta.ToList());
+
+                case 3:
+                    string query1 = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
+
+
+                    var falta1 = db.Database.SqlQuery<Dia>(query1).ToList();
+                    return View(falta1.ToList());
 
 
 
-            //int id = Convert.ToInt32(Session["Id"]);
-            ////Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
-            //int Tipo = Convert.ToInt32(Session["Tipo"]);
-            //List<Relatorio> relatorios = null;
-
-            //switch (Tipo)
-            //{
-            //    case 1:
-            //        var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
-            //        relatorios.Add((Relatorio)relatorio);
-            //        break;
+                case 2:
+                    string query2 = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
-            //    case 3:
-            //        var relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
-            //        relatorios.Add((Relatorio)relatorio1);
-            //        break;
+                    var falta2 = db.Database.SqlQuery<Dia>(query2).ToList();
+                    return View(falta2.ToList());
 
-            //    case 2:
-            //        var relatorio3 = db.Relatorio.Where(r => r.id_professor.Equals(id));
-            //        relatorios.Add((Relatorio)relatorio3);
-            //        break;
+                default:
+                    return View("Error");
 
-            //    default:
-            //        return View("Error");
+            }
 
-            //}
+        
 
-
-            //foreach (var relatorio)
-            //{
-            //    Relatorio relatorio = relatorios[].id_relatorio;
-            //}
-
-
-        }
+    }
 
 
         // GET: Dias/Details/5
+        [Authorize]
         public ActionResult Details(DateTime id)
         {
             if (id == null)
@@ -77,6 +79,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Dias/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa");
@@ -87,6 +90,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "data_hora,conteudo,id_relatorio")] Dia dia)
         {
@@ -102,6 +106,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Dias/Edit/5
+        [Authorize]
         public ActionResult Edit(DateTime id)
         {
             if (id == null)
@@ -121,6 +126,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "data_hora,conteudo,id_relatorio")] Dia dia)
         {

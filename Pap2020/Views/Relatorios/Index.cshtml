@@ -20,15 +20,7 @@
         <th>
             @Html.DisplayNameFor(model => model.email_empresa)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Utilizador.nome_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Utilizador1.nome_utilizador)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Utilizador2.nome_utilizador)
-        </th>
+      
         <th>
             @Html.DisplayNameFor(model => model.avaliacao)
         </th>
@@ -46,25 +38,33 @@
         <td>
             @Html.DisplayFor(modelItem => item.email_empresa)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Utilizador.nome_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Utilizador1.nome_utilizador)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Utilizador2.nome_utilizador)
-        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.avaliacao)
-       )
+       
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.id_relatorio }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.id_relatorio }) |
-            @Html.ActionLink("Apagar", "Delete", new { id=item.id_relatorio }) |
-            @Html.ActionLink("Faltas", "Index","Faltas" , new { id=item.id_relatorio}, htmlAttributes: null) |
+            @if (Convert.ToInt32(Session["Tipo"]) == 3)
+            {
+                @Html.ActionLink("Detalhes", "Details", new { id = item.id_relatorio })
+                
+            
+                @Html.ActionLink("Faltas", "Index", "Faltas", new { id = item.id_relatorio }, htmlAttributes: null)
+            }
+
+            @if (Convert.ToInt32(Session["Tipo"]) == 2)
+            {
+
+                @Html.ActionLink("Detalhes", "Details", new { id = item.id_relatorio })
+            }
+            @if (Convert.ToInt32(Session["Tipo"]) == 1)
+            {
+                @Html.ActionLink("Editar", "Edit", new { id = item.id_relatorio })
+                @Html.ActionLink("Detalhes", "Details", new { id = item.id_relatorio })
+                @Html.ActionLink("Apagar", "Delete", new { id = item.id_relatorio })
+            }
            
+
         </td>
     </tr>
 }

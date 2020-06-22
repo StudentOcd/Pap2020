@@ -1,0 +1,4 @@
+﻿@model object
+
+@Html.TextBoxFor(model => model, new { @class = "form-control" })
+@Html.EditorFor(model=> model.conteudo ,new { htmlAttributes = new { @class = "form-control" } }))

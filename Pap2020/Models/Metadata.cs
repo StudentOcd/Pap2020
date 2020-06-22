@@ -12,19 +12,31 @@ namespace Pap2020.Models
 
         [Required]
         [Display(Name = "Utilizador")]
+        [MinLength(3, ErrorMessage = "O {0} tem que ter pelo menos {1} caracter/es")]
         public string nome_utilizador { get; set; }
 
         [Display(Name = "Email")]
+        [Required]
+        [RegularExpression(@"^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-‌​]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$", ErrorMessage = "O Email não é válido")]
+        [MinLength(5, ErrorMessage = "O {0} tem que ter pelo menos {1} caracter/es")]
         public string email_utilizador { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
+
         [Display(Name = "Password")]
         public string senha_utilizador { get; set; }
+
         [Display(Name = "Telefone")]
         public string telefone_utilizador { get; set; }
+
         [Display(Name = "Processo")]
+        [MinLength(5, ErrorMessage = "O {0} tem que ter pelo menos {1} caracter/es")]
+        [MaxLength(6, ErrorMessage = "O {0} não pode ter mais que {1} caracter/es")]
+        [Required]
+
         public string nr_processo { get; set; }
+
         [Display(Name = "Cargo")]
         public int id_tipo { get; set; }
 
@@ -42,6 +54,7 @@ namespace Pap2020.Models
         public string NIF { get; set; }
 
         [Required]
+        [EmailAddress]
         [Display(Name="Email de Empresa")]
         public string email_empresa { get; set; }
 

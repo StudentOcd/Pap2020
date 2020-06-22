@@ -15,11 +15,10 @@ namespace Pap2020.Controllers
     public class FaltasController : Controller
     {
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
-
         // GET: Faltas
-
-        [HttpGet]
-        public ActionResult Index()
+       
+        [Authorize]
+        public ActionResult Index(int? id)
         {
             if (Session["Id"] == null)
             {
@@ -32,26 +31,23 @@ namespace Pap2020.Controllers
             switch (Tipo)
             {
                 case 1:
-                    string query = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
-                "Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+                    string query = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
 
 
                     var falta = db.Database.SqlQuery<Falta>(query).ToList();
-                        return View(falta.ToList());
+                    return View(falta.ToList());
 
                 case 3:
-                    string query1 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
-                  "Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+                    string query1 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
 
 
                     var falta1 = db.Database.SqlQuery<Falta>(query1).ToList();
                     return View(falta1.ToList());
 
 
-                    
+
                 case 2:
-                    string query2 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where" +
-                "Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador = " + id_utilizador;
+                    string query2 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
 
 
                     var falta2 = db.Database.SqlQuery<Falta>(query2).ToList();
@@ -65,7 +61,8 @@ namespace Pap2020.Controllers
         }
 
 
-        // GET: Faltas/Details/5
+        // GET: Faltas/Details/57
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -81,6 +78,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Faltas/Create
+        [Authorize]
         public ActionResult Create()
         {
             ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa");
@@ -91,6 +89,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_falta,Data,id_relatorio")] Falta falta)
         {
@@ -106,6 +105,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Faltas/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -125,6 +125,7 @@ namespace Pap2020.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_falta,Data_Hora_Inicio,Data_Hora_Fim,id_relatorio")] Falta falta)
         {
@@ -139,6 +140,7 @@ namespace Pap2020.Controllers
         }
 
         // GET: Faltas/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -155,6 +157,7 @@ namespace Pap2020.Controllers
 
         // POST: Faltas/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {

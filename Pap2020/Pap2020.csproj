@@ -310,6 +310,7 @@
     <Content Include="Views\Bloqueios\Details.cshtml" />
     <Content Include="Views\Bloqueios\Edit.cshtml" />
     <Content Include="Views\Bloqueios\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplate\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
