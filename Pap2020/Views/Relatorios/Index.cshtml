@@ -21,9 +21,7 @@
             @Html.DisplayNameFor(model => model.email_empresa)
         </th>
       
-        <th>
-            @Html.DisplayNameFor(model => model.avaliacao)
-        </th>
+  
         <th></th>
     </tr>
 
@@ -39,10 +37,7 @@
             @Html.DisplayFor(modelItem => item.email_empresa)
         </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.avaliacao)
-       
-        </td>
+    
         <td>
             @if (Convert.ToInt32(Session["Tipo"]) == 3)
             {

@@ -20,6 +20,7 @@ namespace Pap2020.Models
             this.Dia = new HashSet<Dia>();
             this.Falta = new HashSet<Falta>();
             this.Bloqueio = new HashSet<Bloqueio>();
+            this.Avaliação = new HashSet<Avaliação>();
         }
     
         public int id_relatorio { get; set; }
@@ -41,5 +42,7 @@ namespace Pap2020.Models
         public virtual Utilizador Utilizador2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Bloqueio> Bloqueio { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliação> Avaliação { get; set; }
     }
 }

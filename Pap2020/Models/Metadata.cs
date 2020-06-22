@@ -72,6 +72,7 @@ namespace Pap2020.Models
 
         [Display(Name="Avaliação Final")]
         public double avaliacao { get; set; }
+
         public int is_locked { get; set; }
 
         [Display(Name="Aluno")]
@@ -107,5 +108,17 @@ namespace Pap2020.Models
         [Display(Name="Pode Editar?")]
         public int is_locked { get; set; }
         public int id_relatorio { get; set; }
+    }
+    public class AvaliaçãoMetaData
+    {
+        public int id_avaliacao { get; set; }
+
+        [Display(Name ="Avaliação Semanal")]
+        public int avaliacaosemanal { get; set; }
+
+        [Display(Name="Avaliação Final")]
+        public int avaliacaofinal { get; set; }
+        public int id_relatorio { get; set; }
+
     }
 }

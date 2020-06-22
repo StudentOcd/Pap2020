@@ -154,6 +154,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AvaliaçãoController.cs" />
     <Compile Include="Controllers\BloqueiosController.cs" />
     <Compile Include="Controllers\DiasController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -165,6 +166,9 @@
     <Compile Include="Crypto\crypto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Avaliação.cs">
+      <DependentUpon>Trabalho.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Bloqueio.cs">
       <DependentUpon>Trabalho.tt</DependentUpon>
@@ -311,6 +315,11 @@
     <Content Include="Views\Bloqueios\Edit.cshtml" />
     <Content Include="Views\Bloqueios\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplate\String.cshtml" />
+    <Content Include="Views\Avaliação\Create.cshtml" />
+    <Content Include="Views\Avaliação\Delete.cshtml" />
+    <Content Include="Views\Avaliação\Details.cshtml" />
+    <Content Include="Views\Avaliação\Edit.cshtml" />
+    <Content Include="Views\Avaliação\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -31,5 +31,10 @@ namespace Pap2020.Models
     {
 
     }
+    [MetadataType(typeof(AvaliaçãoMetaData))]
+    public partial class Avaliação
+    {
+
+    }
    
 }

@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="SistemaGestaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Avaliação">
+          <Key>
+            <PropertyRef Name="id_avaliacao" />
+          </Key>
+          <Property Name="id_avaliacao" Type="int" Nullable="false" />
+          <Property Name="avaliacaosemanal" Type="int" />
+          <Property Name="avaliacaofinal" Type="int" />
+          <Property Name="id_relatorio" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Bloqueio">
           <Key>
             <PropertyRef Name="dia" />
@@ -63,6 +72,18 @@
           <Property Name="nr_processo" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="id_tipo" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Avaliação__id_re__01142BA1">
+          <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
+          <End Role="Avaliação" Type="Self.Avaliação" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Avaliação">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Bloqueio__id_rel__75A278F5">
           <End Role="Relatorio" Type="Self.Relatorio" Multiplicity="1" />
           <End Role="Bloqueio" Type="Self.Bloqueio" Multiplicity="*" />
@@ -148,12 +169,17 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="SistemaGestaoModelStoreContainer">
+          <EntitySet Name="Avaliação" EntityType="Self.Avaliação" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bloqueio" EntityType="Self.Bloqueio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dia" EntityType="Self.Dia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Falta" EntityType="Self.Falta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Relatorio" EntityType="Self.Relatorio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tipo_Utilizador" EntityType="Self.Tipo_Utilizador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Utilizador" EntityType="Self.Utilizador" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Avaliação__id_re__01142BA1" Association="Self.FK__Avaliação__id_re__01142BA1">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Avaliação" EntitySet="Avaliação" />
+          </AssociationSet>
           <AssociationSet Name="FK__Bloqueio__id_rel__75A278F5" Association="Self.FK__Bloqueio__id_rel__75A278F5">
             <End Role="Relatorio" EntitySet="Relatorio" />
             <End Role="Bloqueio" EntitySet="Bloqueio" />
@@ -225,6 +251,7 @@
           <Property Name="avaliacao" Type="Double" />
           <Property Name="is_locked" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Bloqueio" Relationship="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81" FromRole="Relatorio" ToRole="Bloqueio" />
+          <NavigationProperty Name="Avaliação" Relationship="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1" FromRole="Relatorio" ToRole="Avaliação" />
         </EntityType>
         <EntityType Name="Tipo_Utilizador">
           <Key>
@@ -357,6 +384,11 @@
             <End Role="Relatorio" EntitySet="Relatorio" />
             <End Role="Bloqueio" EntitySet="Bloqueio" />
           </AssociationSet>
+          <EntitySet Name="Avaliação" EntityType="SistemaGestaoModel.Avaliação" />
+          <AssociationSet Name="FK__Avaliação__id_re__01142BA1" Association="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1">
+            <End Role="Relatorio" EntitySet="Relatorio" />
+            <End Role="Avaliação" EntitySet="Avaliação" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Bloqueio">
           <Key>
@@ -375,6 +407,28 @@
               <PropertyRef Name="id_relatorio" />
             </Principal>
             <Dependent Role="Bloqueio">
+              <PropertyRef Name="id_relatorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Avaliação">
+          <Key>
+            <PropertyRef Name="id_avaliacao" />
+          </Key>
+          <Property Name="id_avaliacao" Type="Int32" Nullable="false" />
+          <Property Name="avaliacaosemanal" Type="Int32" />
+          <Property Name="avaliacaofinal" Type="Int32" />
+          <Property Name="id_relatorio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Relatorio" Relationship="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1" FromRole="Avaliação" ToRole="Relatorio" />
+        </EntityType>
+        <Association Name="FK__Avaliação__id_re__01142BA1">
+          <End Type="SistemaGestaoModel.Relatorio" Role="Relatorio" Multiplicity="1" />
+          <End Type="SistemaGestaoModel.Avaliação" Role="Avaliação" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Relatorio">
+              <PropertyRef Name="id_relatorio" />
+            </Principal>
+            <Dependent Role="Avaliação">
               <PropertyRef Name="id_relatorio" />
             </Dependent>
           </ReferentialConstraint>
@@ -445,6 +499,16 @@
                 <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
                 <ScalarProperty Name="is_locked" ColumnName="is_locked" />
                 <ScalarProperty Name="dia" ColumnName="dia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliação">
+            <EntityTypeMapping TypeName="SistemaGestaoModel.Avaliação">
+              <MappingFragment StoreEntitySet="Avaliação">
+                <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
+                <ScalarProperty Name="avaliacaofinal" ColumnName="avaliacaofinal" />
+                <ScalarProperty Name="avaliacaosemanal" ColumnName="avaliacaosemanal" />
+                <ScalarProperty Name="id_avaliacao" ColumnName="id_avaliacao" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

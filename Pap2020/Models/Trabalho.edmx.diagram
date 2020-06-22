@@ -18,6 +18,8 @@
         <AssociationConnector Association="SistemaGestaoModel.FK__Utilizado__id_ti__300424B4" ManuallyRouted="false" />
         <EntityTypeShape EntityType="SistemaGestaoModel.Bloqueio" Width="1.5" PointX="7.5" PointY="9.75" />
         <AssociationConnector Association="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Avaliação" Width="1.5" PointX="7.5" PointY="6.625" />
+        <AssociationConnector Association="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
