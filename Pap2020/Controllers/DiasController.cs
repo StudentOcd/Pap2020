@@ -36,7 +36,7 @@ namespace Pap2020.Controllers
                     var falta = db.Database.SqlQuery<Dia>(query).ToList();
                     return View(falta.ToList());
 
-                case 3:
+                case 2:
                     string query1 = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
@@ -45,7 +45,7 @@ namespace Pap2020.Controllers
 
 
 
-                case 2:
+                case 3:
                     string query2 = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 

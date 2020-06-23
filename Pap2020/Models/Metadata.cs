@@ -113,12 +113,14 @@ namespace Pap2020.Models
     {
         public int id_avaliacao { get; set; }
 
-        [Display(Name ="Avaliação Semanal")]
-        public int avaliacaosemanal { get; set; }
 
         [Display(Name="Avaliação Final")]
         public int avaliacaofinal { get; set; }
         public int id_relatorio { get; set; }
+        [Display(Name="Avaliação do Professor")]
+        public Nullable<double> avaliacaoprofessor { get; set; }
+        [Display(Name = "Avaliação do Monitor")]
+        public Nullable<double> avaliacaomonitor { get; set; }
 
     }
 }

@@ -15,9 +15,10 @@ namespace Pap2020.Models
     public partial class Avaliação
     {
         public int id_avaliacao { get; set; }
-        public Nullable<int> avaliacaosemanal { get; set; }
         public Nullable<int> avaliacaofinal { get; set; }
         public int id_relatorio { get; set; }
+        public Nullable<double> avaliacaoprofessor { get; set; }
+        public Nullable<double> avaliacaomonitor { get; set; }
     
         public virtual Relatorio Relatorio { get; set; }
     }

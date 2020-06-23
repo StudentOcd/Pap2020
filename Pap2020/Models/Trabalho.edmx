@@ -10,9 +10,10 @@
             <PropertyRef Name="id_avaliacao" />
           </Key>
           <Property Name="id_avaliacao" Type="int" Nullable="false" />
-          <Property Name="avaliacaosemanal" Type="int" />
           <Property Name="avaliacaofinal" Type="int" />
           <Property Name="id_relatorio" Type="int" Nullable="false" />
+          <Property Name="avaliacaoprofessor" Type="float" />
+          <Property Name="avaliacaomonitor" Type="float" />
         </EntityType>
         <EntityType Name="Bloqueio">
           <Key>
@@ -416,10 +417,11 @@
             <PropertyRef Name="id_avaliacao" />
           </Key>
           <Property Name="id_avaliacao" Type="Int32" Nullable="false" />
-          <Property Name="avaliacaosemanal" Type="Int32" />
           <Property Name="avaliacaofinal" Type="Int32" />
           <Property Name="id_relatorio" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Relatorio" Relationship="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1" FromRole="Avaliação" ToRole="Relatorio" />
+          <Property Name="avaliacaoprofessor" Type="Double" />
+          <Property Name="avaliacaomonitor" Type="Double" />
         </EntityType>
         <Association Name="FK__Avaliação__id_re__01142BA1">
           <End Type="SistemaGestaoModel.Relatorio" Role="Relatorio" Multiplicity="1" />
@@ -505,9 +507,10 @@
           <EntitySetMapping Name="Avaliação">
             <EntityTypeMapping TypeName="SistemaGestaoModel.Avaliação">
               <MappingFragment StoreEntitySet="Avaliação">
+                <ScalarProperty Name="avaliacaomonitor" ColumnName="avaliacaomonitor" />
+                <ScalarProperty Name="avaliacaoprofessor" ColumnName="avaliacaoprofessor" />
                 <ScalarProperty Name="id_relatorio" ColumnName="id_relatorio" />
                 <ScalarProperty Name="avaliacaofinal" ColumnName="avaliacaofinal" />
-                <ScalarProperty Name="avaliacaosemanal" ColumnName="avaliacaosemanal" />
                 <ScalarProperty Name="id_avaliacao" ColumnName="id_avaliacao" />
               </MappingFragment>
             </EntityTypeMapping>

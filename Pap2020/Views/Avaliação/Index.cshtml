@@ -7,39 +7,54 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (Convert.ToInt32(Session["Tipo"]) == 1)
+    {
+
+    }
+    @if (Convert.ToInt32(Session["Tipo"]) == 2)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
+    @if (Convert.ToInt32(Session["Tipo"]) == 3)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.avaliacaosemanal)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.avaliacaofinal)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avaliacaomonitor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avaliacaoprofessor)
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.avaliacaosemanal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.avaliacaofinal)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_avaliacao }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_avaliacao }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_avaliacao })
-        </td>
-    </tr>
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.avaliacaofinal)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.avaliacaomonitor)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.avaliacaoprofessor)
+    </td>
+
+</tr>
 }
 
 </table>
