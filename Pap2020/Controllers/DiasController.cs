@@ -12,7 +12,7 @@ namespace Pap2020.Controllers
     public class DiasController : Controller
     {
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
-
+        
         // GET: Dias
         [Authorize]
         public ActionResult Index(int? id)
