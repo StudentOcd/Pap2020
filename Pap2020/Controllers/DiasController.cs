@@ -24,13 +24,13 @@ namespace Pap2020.Controllers
             
 
             int id_utilizador = Convert.ToInt32(Session["Id"]);
-            //Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
+            
             int Tipo = Convert.ToInt32(Session["Tipo"]);
 
             switch (Tipo)
             {
                 case 1:
-                    string query = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
+                    string query = "Select Dia.data_hora,Dia.conteudo,Dia.id_relatorio,Relatorio.nome_empresa from Dia,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Dia.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
                     var falta = db.Database.SqlQuery<Dia>(query).ToList();
@@ -42,7 +42,6 @@ namespace Pap2020.Controllers
 
                     var falta1 = db.Database.SqlQuery<Dia>(query1).ToList();
                     return View(falta1.ToList());
-
 
 
                 case 3:
@@ -57,10 +56,7 @@ namespace Pap2020.Controllers
 
             }
 
-        
-
     }
-
 
         // GET: Dias/Details/5
         [Authorize]
@@ -82,6 +78,8 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Create()
         {
+        
+
             ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa");
             return View();
         }
@@ -94,6 +92,7 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "data_hora,conteudo,id_relatorio")] Dia dia)
         {
+           
             if (ModelState.IsValid)
             {
                 db.Dia.Add(dia);
@@ -107,19 +106,25 @@ namespace Pap2020.Controllers
 
         // GET: Dias/Edit/5
         [Authorize]
-        public ActionResult Edit(DateTime id)
+        [Route("Dias/Edit/{dia}/{mes}/{ano}")]
+        public ActionResult Edit(DateTime? id , int dia, int mes, int ano)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Dia dia = db.Dia.Find(id);
-            if (dia == null)
+            Dia dia1 = db.Dia.Find(id);
+            if (dia1 == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa", dia.id_relatorio);
-            return View(dia);
+            ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa", dia1.id_relatorio);
+            return View(dia1);
         }
 
         // POST: Dias/Edit/5
@@ -127,9 +132,15 @@ namespace Pap2020.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [Authorize]
+       
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "data_hora,conteudo,id_relatorio")] Dia dia)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0 || Tipo == 2)
+            {
+                return View("Error");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(dia).State = EntityState.Modified;
@@ -143,6 +154,11 @@ namespace Pap2020.Controllers
         // GET: Dias/Delete/5
         public ActionResult Delete(DateTime id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0 || Tipo == 2)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -160,6 +176,11 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(DateTime id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             Dia dia = db.Dia.Find(id);
             db.Dia.Remove(dia);
             db.SaveChanges();

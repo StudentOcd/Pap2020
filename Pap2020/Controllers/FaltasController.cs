@@ -16,7 +16,7 @@ namespace Pap2020.Controllers
     {
         private SistemaGestaoEntities db = new SistemaGestaoEntities();
         // GET: Faltas
-       
+
         [Authorize]
         public ActionResult Index(int? id)
         {
@@ -30,24 +30,24 @@ namespace Pap2020.Controllers
 
             switch (Tipo)
             {
-                case 1:
-                    string query = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
+                case 3:
+                    string query = "Select Falta.id_falta,Relatorio.nome_empresa,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_aluno and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
                     var falta = db.Database.SqlQuery<Falta>(query).ToList();
                     return View(falta.ToList());
 
-                case 3:
-                    string query1 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
+                case 2:
+                    string query1 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_monitor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
                     var falta1 = db.Database.SqlQuery<Falta>(query1).ToList();
-                    return View(falta1.ToList());
+                    return View(falta1.ToList());  
 
 
 
-                case 2:
-                    string query2 = "Select Falta.id_falta,Falta.Data,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador ="+id_utilizador;
+                case 1:
+                    string query2 = "Select Falta.id_falta,Falta.Data,Relatorio.nome_empresa,Falta.id_relatorio from Falta,Utilizador, Relatorio where Utilizador.id_utilizador = Relatorio.id_professor and Relatorio.id_relatorio = Falta.id_relatorio and Utilizador.id_utilizador =" + id_utilizador;
 
 
                     var falta2 = db.Database.SqlQuery<Falta>(query2).ToList();
@@ -81,6 +81,12 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa");
             return View();
         }
@@ -93,6 +99,12 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_falta,Data,id_relatorio")] Falta falta)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Falta.Add(falta);
@@ -108,6 +120,12 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -127,14 +145,30 @@ namespace Pap2020.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id_falta,Data_Hora_Inicio,Data_Hora_Fim,id_relatorio")] Falta falta)
+        public ActionResult Edit([Bind(Include = "id_falta,id_relatorio")] Falta falta)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(falta).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(falta).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch(Exception  e)
+                {
+                    return View("Error");
+ 
+
+                }
             }
+
             ViewBag.id_relatorio = new SelectList(db.Relatorio, "id_relatorio", "nome_empresa", falta.id_relatorio);
             return View(falta);
         }
@@ -143,6 +177,12 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -161,6 +201,12 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             Falta falta = db.Falta.Find(id);
             db.Falta.Remove(falta);
             db.SaveChanges();

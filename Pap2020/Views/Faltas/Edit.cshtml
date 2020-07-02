@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Editar Faltas</h2>
 
 
 @using (Html.BeginForm())
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-
+        <br/>
 
         <div class="form-group">
             @Html.LabelFor(model => model.id_relatorio, "id_relatorio", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -46,7 +46,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar atrás", "Index")
 </div>
 
 @section Scripts {

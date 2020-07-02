@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace Pap2020.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        //ponderar outro field ConfirmPassword
+       
+
+        
     }
 }

@@ -4,7 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-
+    <h2>Registo Diário</h2>
+<br/>
 
 
 <table class="table">
@@ -15,32 +16,45 @@
         <th>
             @Html.DisplayNameFor(model => model.conteudo)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
-        </th>
-        <th></th>
+        
     </tr>
-
+   
 @foreach (var item in Model) {
 <tr>
     <td>
-        @Html.DisplayNameFor(model => model.data_hora)
+        @Html.DisplayFor(modelItem => item.data_hora)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.conteudo)
     </td>
+
+   
     <td>
-        @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-    </td>
+        @if (Convert.ToInt32(Session["Tipo"]) == 1)
+
+        {
+            @Html.ActionLink("Editar", "Edit", new { id = item.data_hora.ToString("dd-MM-yyyy") })
+            <br />
+            @Html.ActionLink("Detalhes", "Details", new { id = item.data_hora })
+            <br />
+            @Html.ActionLink("Apagar", "Delete", new { id = item.data_hora })
+            }
+            @if (Convert.ToInt32(Session["Tipo"]) == 2)
+            {
+                @Html.ActionLink("Editar", "Edit", new { id = item.data_hora })
+                <br />
+                @Html.ActionLink("Detalhes", "Details", new { id = item.data_hora })
+                <br />
+                @Html.ActionLink("Apagar", "Delete", new { id = item.data_hora })
+            }
+        </td>
 </tr>
 }
 
 </table>
 <p>
-    @Html.ActionLink("Inserir registo diário", "Create")
+    @if (Convert.ToInt32(Session["Tipo"]) == 3)
+    {
+        @Html.ActionLink("Inserir registo diário", "Create")
+    }
 </p>

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44310</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -159,7 +159,6 @@
     <Compile Include="Controllers\DiasController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FaltasController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RelatoriosController.cs" />
     <Compile Include="Controllers\Tipo_UtilizadorController.cs" />
     <Compile Include="Controllers\UtilizadorsController.cs" />
@@ -202,7 +201,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Trabalho.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserLoginView.cs" />
+    <Compile Include="Models\UserLoginViewController.cs" />
     <Compile Include="Models\Utilizador.cs">
       <DependentUpon>Trabalho.tt</DependentUpon>
     </Compile>
@@ -304,26 +303,21 @@
     <Content Include="Views\Faltas\Edit.cshtml" />
     <Content Include="Views\Faltas\Index.cshtml" />
     <Content Include="Views\Utilizadors\Login\Login.cshtml" />
-    <Content Include="Views\Relatorios\Rate.cshtml" />
-    <Content Include="Views\Utilizadors\Register\Register.cshtml" />
     <Content Include="Views\Utilizadors\Web.config" />
     <Content Include="Views\Shared\Home.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Bloqueios\Create.cshtml" />
-    <Content Include="Views\Bloqueios\Delete.cshtml" />
-    <Content Include="Views\Bloqueios\Details.cshtml" />
-    <Content Include="Views\Bloqueios\Edit.cshtml" />
-    <Content Include="Views\Bloqueios\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplate\String.cshtml" />
     <Content Include="Views\Avaliação\Create.cshtml" />
     <Content Include="Views\Avaliação\Delete.cshtml" />
     <Content Include="Views\Avaliação\Index.cshtml" />
+    <Content Include="Views\Utilizadors\Login\SenhaRecup.cshtml" />
+    <Content Include="Views\Utilizadors\Main.cshtml" />
+    <Content Include="Views\Utilizadors\Main1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\HyperSpace\" />
     <Folder Include="Scripts\HyperSpace\" />
-    <Folder Include="Views\Conta\" />
+    <Folder Include="Views\UserLoginView\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalhes da Falta</h2>
 
 <div>
     <h4>Falta</h4>
@@ -32,6 +32,22 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id_falta }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Convert.ToInt32(Session["Tipo"]) == 1)
+    {
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id_falta })
+        <br />
+        @Html.ActionLink("Voltar atrás", "Index")
+    }
+    @if (Convert.ToInt32(Session["Tipo"]) == 2)
+    {
+        @Html.ActionLink("Editar", "Edit", new { id = Model.id_falta })
+        <br />
+        @Html.ActionLink("Voltar atrás", "Index")
+
+    }
+
+    @if (Convert.ToInt32(Session["Tipo"]) == 3)
+    {
+        @Html.ActionLink("Voltar atrás", "Index")
+    }
 </p>

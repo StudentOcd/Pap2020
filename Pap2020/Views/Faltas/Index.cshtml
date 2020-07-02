@@ -4,38 +4,69 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Faltas</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (Convert.ToInt32(Session["Tipo"]) == 1)
+    {
+        @Html.ActionLink("Marcar Falta", "Create")
+    }
+    @if (Convert.ToInt32(Session["Tipo"]) == 2)
+    {
+        @Html.ActionLink("Marcar Falta", "Create")
+    }
 </p>
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Data)
         </th>
-       
         <th>
             @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
         </th>
-        <th></th>
+        <th>
+
+        </th>
+
+        
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Data)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_falta }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_falta }) |
-            @Html.ActionLink("Delete", "Delete", new { idreq=item.id_falta })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Data)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
+            </td>
+
+   
+            <td>
+                @if (Convert.ToInt32(Session["Tipo"]) == 3)
+                {
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.id_falta })
+                    <br />
+                }
+                @if (Convert.ToInt32(Session["Tipo"]) == 2)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_falta })
+                    <br/>
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.id_falta })
+                    <br/>
+                    @Html.ActionLink("Apagar", "Delete", new { id = item.id_falta })
+                }
+                @if (Convert.ToInt32(Session["Tipo"]) == 1)
+                {
+                    @Html.ActionLink("Editar", "Edit", new { id = item.id_falta })
+                    <br/>
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.id_falta })
+                    <br />
+                    @Html.ActionLink("Apagar ", "Delete", new { id = item.id_falta })
+                }
+
+            </td>
+        </tr>
+    }
 
 </table>

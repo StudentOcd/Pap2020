@@ -24,41 +24,48 @@ namespace Pap2020.Controllers
             {
                 return View("Error");
             }
+            
+            
             int id = Convert.ToInt32(Session["Id"]);
             //Fazer com que só apareca a lista com o mesmo id que o utilizador no momento
            int Tipo =Convert.ToInt32( Session["Tipo"]);
            
-            switch (Tipo)
-            {
+                switch (Tipo)
+                {
 
-                case 3:  
-                   var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
-                    return View(relatorio.ToList());
-                  
-                    
-                case 2:   
-                  var  relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
-                    
-                    return View(relatorio1.ToList());
-                   
-                case 1:
-                   var  relatorio2 = db.Relatorio.Where(r => r.id_professor.Equals(id));
-                    if(relatorio2  == null)
-                    {
+                    case 3:
+                        var relatorio = db.Relatorio.Where(r => r.id_aluno.Equals(id));
+                        return View(relatorio.ToList());
+
+
+                    case 2:
+                        var relatorio1 = db.Relatorio.Where(r => r.id_monitor.Equals(id));
+
+                        return View(relatorio1.ToList());
+
+                    case 1:
+                        var relatorio2 = db.Relatorio.Where(r => r.id_professor.Equals(id));
+                        if (relatorio2 == null)
+                        {
+                            return View("Error");
+                        }
+                        return View(relatorio2.ToList());
+
+                    default:
                         return View("Error");
-                    }
-                    return View(relatorio2.ToList());
 
-                default:
-                    return View("Error");
-                    
-            }
+                }
+            
            
         }
 
         [Authorize]
         public ActionResult Details(int? id)
         {
+            if (Session["Id"] == null)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -75,6 +82,11 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             ViewBag.id_aluno = new SelectList(db.Utilizador, "id_utilizador", "nome_utilizador");
             ViewBag.id_monitor = new SelectList(db.Utilizador, "id_utilizador", "nome_utilizador");
             ViewBag.id_professor = new SelectList(db.Utilizador, "id_utilizador", "nome_utilizador");
@@ -89,6 +101,11 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_relatorio,nome_empresa,NIF,email_empresa,id_aluno,id_professor,id_monitor")] Relatorio relatorio)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             if (ModelState.IsValid)
             {
                 db.Relatorio.Add(relatorio);
@@ -106,6 +123,11 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -129,6 +151,11 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id_relatorio,nome_empresa,NIF,email_empresa,id_aluno,id_professor,id_monitor")] Relatorio relatorio)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(relatorio).State = EntityState.Modified;
@@ -145,6 +172,11 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -157,7 +189,7 @@ namespace Pap2020.Controllers
 
             if (db.Relatorio.Any(e => e.id_relatorio == id))
             {
-                var handleErrorInfo = new HandleErrorInfo(new Exception("Não é possível remover o Relatório dado que existe(m) utilizadores pertencentes ao mesmo!"),"Relatorio","Index");
+                var handleErrorInfo = new HandleErrorInfo(new Exception("Não é possível remover o Relatório dado que existe(m) utilizadores pertencentes ao mesmo!"),"RelatorioS","Index");
                 return View("Error", handleErrorInfo);
             }
             return View(relatorio);
@@ -169,6 +201,11 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
             Relatorio relatorio = db.Relatorio.Find(id);
             db.Relatorio.Remove(relatorio);
             db.SaveChanges();

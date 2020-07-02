@@ -14,7 +14,7 @@
 
 
                     <p>
-                        @Html.ActionLink("Create New", "Create")
+                        @Html.ActionLink("Criar Utilizador", "Create")
                     </p>
                     <div class="table-wrapper">
                         <table >
@@ -59,9 +59,11 @@
                                         @Html.DisplayFor(modelItem => item.Tipo_Utilizador.nome_tipo)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.id_utilizador }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.id_utilizador }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.id_utilizador })
+                                        @Html.ActionLink("Editar", "Edit", new { id = item.id_utilizador }) 
+                                        <br />
+                                        @Html.ActionLink("Detalhes", "Details", new { id = item.id_utilizador }) 
+                                        <br />
+                                        @Html.ActionLink("Apagar", "Delete", new { id = item.id_utilizador })
                                     </td>
                                 </tr>
                             }

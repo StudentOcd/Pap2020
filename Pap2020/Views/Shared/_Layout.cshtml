@@ -16,43 +16,44 @@
                 <ul>
                     @{
                         if (Session["username"] == null)
-                        {
-                            @Html.ActionLink("Login", "Login", "Utilizadors")
-                            @Html.ActionLink("Register", "Register", "Utilizadors") // Falta adicionar no controller
-                        }
-                        if (Convert.ToInt32(Session["Tipo"]) == 1)
-                        {
-                            <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
-                            @Html.ActionLink("Utilizadores", "Index", "Utilizadors")
-                            @Html.ActionLink("Relatorios", "Index", "Relatorios")
-                            @Html.ActionLink("Faltas", "Index", "Faltas")
-                            @Html.ActionLink("Atividades", "Index", "Dias")
-                            @Html.ActionLink("Avaliação", "Index", "Avaliação")
-                            @Html.ActionLink("Conta", "Details", "Utilizadors")
-                            @Html.ActionLink("Logout", "Logout", "Utilizadors")
+                        { 
+                        @Html.ActionLink("Página Inicial", "Main", "Utilizadors")
+                        @Html.ActionLink("Login", "Login", "Utilizadors")
 
-                        }
-                        if (Convert.ToInt32(Session["Tipo"]) == 2)
-                        {
-                            <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
-                            @Html.ActionLink("Relatorios", "Index", "Relatorios")
-                            @Html.ActionLink("Avaliação", "Index", "Avaliação")
-                            @Html.ActionLink("Faltas", "Index", "Faltas")
-                            @Html.ActionLink("Atividades", "Index", "Dias")
-                            @Html.ActionLink("Conta", "Details", "Utilizadors")
-                            @Html.ActionLink("Logout", "Logout", "Utilizadors")
+                    }
+                    if (Convert.ToInt32(Session["Tipo"]) == 1)
+                    {
+                        <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
+                        @Html.ActionLink("Utilizadores", "Index", "Utilizadors")
+                        @Html.ActionLink("Relatorios", "Index", "Relatorios")
+                        @Html.ActionLink("Faltas", "Index", "Faltas")
+                        @Html.ActionLink("Atividades", "Index", "Dias")
+                        @Html.ActionLink("Avaliação", "Index", "Avaliação")
+                        
+                        @Html.ActionLink("Logout", "Logout", "Utilizadors")
 
-                        }
-                        if (Convert.ToInt32(Session["Tipo"]) == 3)
-                        {
-                            <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
-                            @Html.ActionLink("Relatorios", "Index", "Relatorios")
+                    }
+                    if (Convert.ToInt32(Session["Tipo"]) == 2)
+                    {
+                        <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
+                        @Html.ActionLink("Relatorios", "Index", "Relatorios")
+                        @Html.ActionLink("Avaliação", "Index", "Avaliação")
+                        @Html.ActionLink("Faltas", "Index", "Faltas")
+                        @Html.ActionLink("Atividades", "Index", "Dias")
+                       
+                        @Html.ActionLink("Logout", "Logout", "Utilizadors")
 
-                            @Html.ActionLink("Atividades", "Index", "Dias")
-                            @Html.ActionLink("Conta", "Details", "Utilizadors")
-                            @Html.ActionLink("Logout", "Logout", "Utilizadors")
+                    }
+                    if (Convert.ToInt32(Session["Tipo"]) == 3)
+                    {
+                        <li class="navbar-text">@Html.Label("User: ")@Session["username"]</li>
+                        @Html.ActionLink("Relatorios", "Index", "Relatorios")
 
-                        }
+                        @Html.ActionLink("Atividades", "Index", "Dias")
+                       
+                        @Html.ActionLink("Logout", "Logout", "Utilizadors")
+
+                    }
                     }
 
                 </ul>
@@ -71,15 +72,8 @@
         <p></p>
             <footer>
                 <p>&copy; @DateTime.Now.Year - PAP2020</p>
-        </footer>
-      
-       
+        </footer> 
     </div>
-       
-       
-           
-            
-
             @Scripts.Render("~/bundles/jquery")
             @Scripts.Render("~/bundles/HyperSpace")
             @RenderSection("scripts", required: false)

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Pap2020.Models.Avaliação>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Avaliação";
 }
 
 <h2>Index</h2>
@@ -9,52 +9,54 @@
 <p>
     @if (Convert.ToInt32(Session["Tipo"]) == 1)
     {
-
+        @Html.ActionLink("Avaliar", "Create")
     }
     @if (Convert.ToInt32(Session["Tipo"]) == 2)
     {
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Avaliar", "Create")
     }
     @if (Convert.ToInt32(Session["Tipo"]) == 3)
     {
-        @Html.ActionLink("Create New", "Create")
+
     }
 </p>
 <table class="table">
     <tr>
-
-        <th>
-            @Html.DisplayNameFor(model => model.avaliacaofinal)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
-        </th>
         <th>
             @Html.DisplayNameFor(model => model.avaliacaomonitor)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.avaliacaoprofessor)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.avaliacaofinal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Relatorio.nome_empresa)
+        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
 <tr>
-
     <td>
-        @Html.DisplayFor(modelItem => item.avaliacaofinal)
+    @Html.DisplayFor(modelItem => item.avaliacaomonitor)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
+    @Html.DisplayFor(modelItem => item.avaliacaoprofessor)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.avaliacaomonitor)
+    @Html.DisplayFor(modelItem => item.avaliacaofinal)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.avaliacaoprofessor)
+    @Html.DisplayFor(modelItem => item.Relatorio.nome_empresa)
     </td>
+    
 
 </tr>
+
 }
 
 </table>

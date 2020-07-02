@@ -7,7 +7,10 @@
 <h2>Menu dos Relatórios</h2>
 
 <p>
-    @Html.ActionLink("Criar Relatório", "Create")
+    @if (Convert.ToInt32(Session["Tipo"]) == 1)
+    {
+        @Html.ActionLink("Criar Relatório", "Create")
+    }
 </p>
 <table class="table">
     <tr>
@@ -43,7 +46,7 @@
             {
                 @Html.ActionLink("Detalhes", "Details", new { id = item.id_relatorio })
                 
-            
+            <br />
                 @Html.ActionLink("Faltas", "Index", "Faltas", new { id = item.id_relatorio }, htmlAttributes: null)
             }
 
@@ -55,7 +58,9 @@
             @if (Convert.ToInt32(Session["Tipo"]) == 1)
             {
                 @Html.ActionLink("Editar", "Edit", new { id = item.id_relatorio })
+                <br />
                 @Html.ActionLink("Detalhes", "Details", new { id = item.id_relatorio })
+                <br/>
                 @Html.ActionLink("Apagar", "Delete", new { id = item.id_relatorio })
             }
            

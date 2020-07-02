@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="18c729b1e7a842eaba5844f2499f7f5e" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="18c729b1e7a842eaba5844f2499f7f5e" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="SistemaGestaoModel.Dia" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaGestaoModel.Falta" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SistemaGestaoModel.Relatorio" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
@@ -16,7 +16,7 @@
         <AssociationConnector Association="SistemaGestaoModel.FK__Relatorio__id_mo__34C8D9D1" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaGestaoModel.FK__Relatorio__id_pr__33D4B598" ManuallyRouted="false" />
         <AssociationConnector Association="SistemaGestaoModel.FK__Utilizado__id_ti__300424B4" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SistemaGestaoModel.Bloqueio" Width="1.5" PointX="7.5" PointY="9.75" />
+        <EntityTypeShape EntityType="SistemaGestaoModel.Bloqueio" Width="1.5" PointX="7.5" PointY="9" />
         <AssociationConnector Association="SistemaGestaoModel.FK__Table__id_relato__70DDC3D81" />
         <EntityTypeShape EntityType="SistemaGestaoModel.Avaliação" Width="1.5" PointX="7.5" PointY="6.625" />
         <AssociationConnector Association="SistemaGestaoModel.FK__Avaliação__id_re__01142BA1" />

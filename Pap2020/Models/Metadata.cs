@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Pap2020.Models
 {
@@ -28,13 +29,13 @@ namespace Pap2020.Models
         public string senha_utilizador { get; set; }
 
         [Display(Name = "Telefone")]
+        [RegularExpression(@"\d{9}", ErrorMessage = "O formato do Telefone deverá ser composto por 9 dígitos: xxxxxxxxx")]
         public string telefone_utilizador { get; set; }
 
         [Display(Name = "Processo")]
         [MinLength(5, ErrorMessage = "O {0} tem que ter pelo menos {1} caracter/es")]
         [MaxLength(6, ErrorMessage = "O {0} não pode ter mais que {1} caracter/es")]
         [Required]
-
         public string nr_processo { get; set; }
 
         [Display(Name = "Cargo")]
@@ -87,15 +88,20 @@ namespace Pap2020.Models
     public class FaltaMetadata
     {
         [Display(Name="Data")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Data { get; set; }
 
         [Display(Name = "Relatório")]
         public int id_relatorio { get; set; }
+
+       
     }
     public class DiaMetadata
     {
         [Display(Name = " Data")]
-        public System.DateTime data_hora { get; set; }
+        
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime data_hora { get; set; }
 
         [Display(Name =" Atividade")]
         public string conteudo { get; set; }
@@ -115,12 +121,17 @@ namespace Pap2020.Models
 
 
         [Display(Name="Avaliação Final")]
-        public int avaliacaofinal { get; set; }
-        public int id_relatorio { get; set; }
+       
+        public int? avaliacaofinal { get; set; }
+        public int? id_relatorio { get; set; }
         [Display(Name="Avaliação do Professor")]
-        public Nullable<double> avaliacaoprofessor { get; set; }
+        [MinLength(0, ErrorMessage = "A nota tem que ser de 0 a 20.")]
+        [MaxLength(20, ErrorMessage = "A nota tem que ser de 0 a 20")]
+        public Nullable<float> avaliacaoprofessor { get; set; }
         [Display(Name = "Avaliação do Monitor")]
-        public Nullable<double> avaliacaomonitor { get; set; }
-
+        [MinLength(0, ErrorMessage = "A nota tem que ser de 0 a 20.")]
+        [MaxLength(20, ErrorMessage = "A nota tem que ser de 0 a 20")]
+        public Nullable<float> avaliacaomonitor { get; set; }
+        
     }
 }

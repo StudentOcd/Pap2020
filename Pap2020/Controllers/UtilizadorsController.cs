@@ -23,7 +23,7 @@ namespace Pap2020.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon(); // it will clear the session at the end of request
+            Session.Abandon();
             return RedirectToAction("Login","Utilizadors");
         }
 
@@ -39,19 +39,21 @@ namespace Pap2020.Controllers
                 if (v != null)
                 {
                     //Criar objeto que passe toda informação session
-                    Session["username"] = v.First().nome_utilizador;
-                    Session["Id"] = v.First().id_utilizador;
-                    Session["Tipo"] = v.First().id_tipo;
-                    FormsAuthentication.SetAuthCookie(v.First().nome_utilizador, false);
-                    
+                    try
+                    {
+
+                        Session["username"] = v.First().nome_utilizador;
+                        Session["Id"] = v.First().id_utilizador;
+                        Session["Tipo"] = v.First().id_tipo;
+                        FormsAuthentication.SetAuthCookie(v.First().nome_utilizador, false);
+                    }
+                    catch (InvalidOperationException e) {
+                        TempData["errorMessage"] = "Email e/ou password erradas! Tente novamente";
+                        return View("Error", new HandleErrorInfo(new Exception("Email e/ou password erradas! Tente novamente"), "Utilizadors", "Login"));
+                    }
                     return RedirectToAction("Index","Relatorios");
                 }
-                else
-                {
-                    TempData["errorMessage"] = "Email e/ou password erradas! Tente novamente";
-                    return View("Error", new HandleErrorInfo(new Exception("Email e/ou password erradas! Tente novamente"), "Utilizadors", "Login"));
-                   
-                }
+              
             }
 
             return View();
@@ -103,6 +105,12 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (Session["Id"] == null)
             {
                 return View("Error");
@@ -124,7 +132,12 @@ namespace Pap2020.Controllers
         // GET: Utilizadors/Create
         public ActionResult Register()
         {
-          
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             ViewBag.id_tipo = new SelectList(db.Tipo_Utilizador, "id_tipo", "nome_tipo");
             return View("~/Views/Utilizadors/Register/Register.cshtml");
         }
@@ -136,6 +149,12 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (db.Utilizador.Any(u => u.email_utilizador == utilizador.email_utilizador))
             {
                 ModelState.AddModelError("Email", "Esse email já se encontra registado no sistema. Tente novamente!");
@@ -158,6 +177,12 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -180,9 +205,16 @@ namespace Pap2020.Controllers
 
         public ActionResult Edit([Bind(Include = "id_utilizador,nome_utilizador,email_utilizador,senha_utilizador,telefone_utilizador,nr_processo,id_tipo")] Utilizador utilizador)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (ModelState.IsValid)
             {
                 db.Entry(utilizador).State = EntityState.Modified;
+                utilizador.senha_utilizador = Crypto.crypto.GenerateSHA256String(utilizador.senha_utilizador);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -194,6 +226,12 @@ namespace Pap2020.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -203,7 +241,7 @@ namespace Pap2020.Controllers
             {
                 return HttpNotFound();
             }
-            if (db.Utilizador.Any(e => e.id_utilizador == id))
+            if (db.Relatorio.Any(e => e.id_aluno == id || db.Relatorio.Any(x => x.id_monitor == id || db.Relatorio.Any(a => a.id_professor == id))))
             {
                 var handleErrorInfo = new HandleErrorInfo(new Exception("Não é possível remover o Utilizador dado que existe(m) relatórios pertencentes ao mesmo!"), "Utilizadors", "Index");
                 return View("Error", handleErrorInfo);
@@ -218,6 +256,12 @@ namespace Pap2020.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            int Tipo = Convert.ToInt32(Session["Tipo"]);
+            if (Tipo == 3 || Tipo == 0)
+            {
+                return View("Error");
+            }
+
             Utilizador utilizador = db.Utilizador.Find(id);
             db.Utilizador.Remove(utilizador);
             db.SaveChanges();
